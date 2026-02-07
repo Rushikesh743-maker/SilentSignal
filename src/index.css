@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    /* SilentSignal Design System - Dark, Tactical, Trustworthy */
+    --background: 220 20% 8%;
+    --foreground: 220 15% 90%;
+
+    --card: 220 18% 11%;
+    --card-foreground: 220 15% 90%;
+
+    --popover: 220 18% 11%;
+    --popover-foreground: 220 15% 90%;
+
+    /* Primary - Slate Blue for trust */
+    --primary: 215 25% 35%;
+    --primary-foreground: 220 15% 95%;
+
+    /* Secondary - Muted surfaces */
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 220 15% 80%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 55%;
+
+    /* Accent - Subtle teal for active states */
+    --accent: 185 50% 35%;
+    --accent-foreground: 185 50% 95%;
+
+    /* Emergency - Coral/Red for alerts */
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Alert colors */
+    --alert: 15 80% 55%;
+    --alert-foreground: 0 0% 100%;
+    --alert-glow: 15 80% 55%;
+
+    /* Armed/Active state */
+    --armed: 160 60% 40%;
+    --armed-foreground: 160 60% 95%;
+    --armed-glow: 160 60% 40%;
+
+    /* Discreet/Safe state */
+    --safe: 215 25% 45%;
+    --safe-foreground: 215 25% 95%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 215 25% 45%;
+
+    --radius: 0.75rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4), 0 2px 4px -2px hsl(0 0% 0% / 0.3);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.5), 0 4px 6px -4px hsl(0 0% 0% / 0.4);
+    --shadow-glow-alert: 0 0 20px hsl(var(--alert) / 0.3);
+    --shadow-glow-armed: 0 0 20px hsl(var(--armed) / 0.3);
+
+    /* Sidebar - kept for compatibility */
+    --sidebar-background: 220 20% 6%;
+    --sidebar-foreground: 220 15% 90%;
+    --sidebar-primary: 215 25% 35%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 220 15% 90%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 215 25% 45%;
+  }
+
+  /* Fake Calculator Theme - Light, Normal Looking */
+  .fake-screen {
+    --background: 0 0% 96%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    --primary: 0 0% 20%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 210 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Prevent text selection for security */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Mono font for codes/data */
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Status indicator pulse */
+  .pulse-armed {
+    animation: pulse-armed 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-armed {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--armed) / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px hsl(var(--armed) / 0);
+    }
+  }
+
+  .pulse-alert {
+    animation: pulse-alert 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-alert {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--alert) / 0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 12px hsl(var(--alert) / 0);
+    }
+  }
+
+  /* Fade in animation */
+  .fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide up animation */
+  .slide-up {
+    animation: slideUp 0.2s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Safe area for mobile */
+@supports (padding: max(0px)) {
+  body {
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
